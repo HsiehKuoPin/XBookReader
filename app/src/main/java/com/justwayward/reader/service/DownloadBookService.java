@@ -162,12 +162,18 @@ public class DownloadBookService extends Service {
                     }
                     if (!downloadQueue.isFinish && !downloadQueue.isCancel) {
                         // 章节文件不存在,则下载，否则跳过
-                        if (CacheManager.getInstance().getChapterFile(bookId, i) == null) {
+                        if (downloadQueue.isAppend){
                             BookMixAToc.mixToc.Chapters chapters = list.get(i - 1);
                             String url = chapters.link;
-                            int ret;
-                            if (!downloadQueue.isAppend)ret = download(url, bookId, chapters.title, i, list.size());
-                            else ret = download(url, bookId, chapters.title, i, list.size(),downloadQueue.bookName,downloadQueue.isAppend);
+                            int ret = download(url, bookId, chapters.title, i, list.size(),downloadQueue.bookName,downloadQueue.isAppend);
+
+                            if (ret != 1) {
+                                failureCount++;
+                            }
+                        }else if (CacheManager.getInstance().getChapterFile(bookId, i) == null) {
+                            BookMixAToc.mixToc.Chapters chapters = list.get(i - 1);
+                            String url = chapters.link;
+                            int ret = download(url, bookId, chapters.title, i, list.size());
 
                             if (ret != 1) {
                                 failureCount++;
@@ -270,7 +276,7 @@ public class DownloadBookService extends Service {
                             post(new DownloadProgress(bookId, String.format(
                                     getString(R.string.book_read_download_progress), title, chapter, chapterSize),
                                     true));
-                            CacheManager.getInstance().saveChapterFile(bookName, data.chapter,isAppend);
+                            CacheManager.getInstance().saveChapterFile(bookName, title, data.chapter,isAppend);
                             result[0] = 1;
                         } else {
                             result[0] = 0;

@@ -155,9 +155,9 @@ public class CacheManager {
         File file = FileUtils.getChapterFile(bookId, chapter);
         FileUtils.writeFile(file.getAbsolutePath(), StringUtils.formatContent(data.body), false);
     }
-    public void saveChapterFile(String bookName, ChapterRead.Chapter data,boolean isAppend) {
+    public void saveChapterFile(String bookName, String title, ChapterRead.Chapter data,boolean isAppend) {
         File file = FileUtils.getChapterFile(bookName);
-        FileUtils.writeFile(file.getAbsolutePath(), StringUtils.formatContent(data.body), isAppend);
+        FileUtils.writeFile(file.getAbsolutePath(), StringUtils.formatContent("\n"+title+"\n"+data.body), isAppend);
     }
 
     /**

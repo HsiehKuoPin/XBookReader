@@ -165,7 +165,7 @@ public class MainActivity extends BaseActivity implements MainContract.View, Log
             public void run() {
                 if (!SettingManager.getInstance().isUserChooseSex()
                         && (genderPopupWindow == null || !genderPopupWindow.isShowing())) {
-                    showChooseSexPopupWindow();
+//                    showChooseSexPopupWindow();
                 } else {
                     showDialog();
                     mPresenter.syncBookShelf();
