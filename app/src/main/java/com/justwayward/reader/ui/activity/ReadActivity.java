@@ -47,7 +47,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.justwayward.reader.R;
-import com.justwayward.reader.ReaderApplication;
 import com.justwayward.reader.base.BaseActivity;
 import com.justwayward.reader.base.Constant;
 import com.justwayward.reader.bean.BookMixAToc;
@@ -894,7 +893,7 @@ public class ReadActivity extends BaseActivity implements BookReadContract.View 
             mPresenter.detachView();
         }
         // 观察内存泄漏情况
-        ReaderApplication.getRefWatcher(this).watch(this);
+//        ReaderApplication.getRefWatcher(this).watch(this);
     }
 
     private class ReadListener implements OnReadStateChangeListener {
