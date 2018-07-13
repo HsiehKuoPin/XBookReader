@@ -260,10 +260,12 @@ public class FileUtils {
         String cacheRootPath = "";
         if (isSdCardAvailable()) {
             // /sdcard/Android/data/<application package>/cache
-            cacheRootPath = context.getExternalCacheDir().getPath();
+//            cacheRootPath = context.getExternalCacheDir().getPath();
+            cacheRootPath = context.getExternalFilesDir(null).getAbsolutePath();
         } else {
             // /data/data/<application package>/cache
-            cacheRootPath = context.getCacheDir().getPath();
+//            cacheRootPath = context.getCacheDir().getPath();
+            cacheRootPath = context.getFilesDir().getAbsolutePath();
         }
         return cacheRootPath;
     }
